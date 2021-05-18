@@ -3,6 +3,8 @@
  */
 package com.rmm.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,11 +18,16 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="device")
-public class Device {
+public class Device implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3912007875313714203L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, updatable = false, nullable = false)
+//	@Column(name = "id", unique = true, updatable = false, nullable = false)
 	private Long id;
 	
 	@Column(name = "system_name")
@@ -28,6 +35,20 @@ public class Device {
 	
 	@Column(name = "type")
 	private String type;
+	
+	public Device() {}
+	
+	
+	/**
+	 * @param id
+	 * @param systemName
+	 * @param type
+	 */
+	public Device(Long id, String systemName, String type) {
+		this.id = id;
+		this.systemName = systemName;
+		this.type = type;
+	}
 
 	/**
 	 * @return the id
