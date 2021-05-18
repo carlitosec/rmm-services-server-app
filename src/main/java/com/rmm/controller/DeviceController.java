@@ -35,12 +35,10 @@ public class DeviceController {
 
 	@GetMapping("/devices")
 	public ResponseEntity<List<Device>> getAllDevices() {
-		System.out.println("Entra aqui o no");
 		List<Device> devices = new ArrayList<Device>();
 
 		try {
 			deviceRepository.findAll().forEach(devices::add);
-			;
 
 			if (devices.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
