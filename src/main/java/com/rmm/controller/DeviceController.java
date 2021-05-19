@@ -6,6 +6,8 @@ package com.rmm.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +33,10 @@ public class DeviceController {
 
 	@Autowired
 	private DeviceService deviceService;
-
-	@GetMapping("/devices")
-	public ResponseEntity<List<Device>> getAllDevices() {
-		List<Device> devices = deviceService.findAll();
+	
+	@GetMapping("/{customerId}/devices")
+	public ResponseEntity<List<Device>> getAllDevices(@PathVariable("customerId") Long customerId) {
+		List<Device> devices = deviceService.findAll(customerId);
 
 		try {
 			if (devices.isEmpty()) {
@@ -47,14 +49,10 @@ public class DeviceController {
 		return new ResponseEntity<>(devices, HttpStatus.OK);
 	}
 
-	@PostMapping("/devices")
-	public ResponseEntity<Device> addDevice(@RequestBody Device device) {
-		try {
-			Device deviceTmp = deviceService.save(device);
-			return new ResponseEntity<>(deviceTmp, HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	@PostMapping("/devices/{customerId}")
+	public Device addDevice(@PathVariable("customerId") Long customerId, 
+			@Valid @RequestBody Device device) throws Exception{
+		return deviceService.save(customerId, device);
 	}
 
 	@PutMapping("/devices/{id}")

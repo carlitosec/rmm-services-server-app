@@ -37,8 +37,8 @@ public class Application implements CommandLineRunner{
 	@Override
     public void run(String... args) throws Exception {
         System.out.println("DATASOURCE = " + dataSource);
-        Device device = new Device(4L, "Testing", "Unix");
-        deviceRepository.save(device);
-        System.out.println("After saving record from class");
+//        Device device = new Device(4L, "Testing", "Unix");
+//        deviceRepository.save(device);
+//        System.out.println("After saving record from class");
     }
 }

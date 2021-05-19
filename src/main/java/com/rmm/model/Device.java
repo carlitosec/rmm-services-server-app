@@ -5,11 +5,14 @@ package com.rmm.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -27,7 +30,6 @@ public class Device implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@Column(name = "id", unique = true, updatable = false, nullable = false)
 	private Long id;
 	
 	@Column(name = "system_name")
@@ -35,6 +37,10 @@ public class Device implements Serializable{
 	
 	@Column(name = "type")
 	private String type;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 	
 	public Device() {}
 	
@@ -91,7 +97,20 @@ public class Device implements Serializable{
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
-	
+
+
+	/**
+	 * @return the customer
+	 */
+	public Customer getCustomer() {
+		return customer;
+	}
+
+
+	/**
+	 * @param customer the customer to set
+	 */
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 }
