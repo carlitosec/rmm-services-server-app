@@ -49,7 +49,6 @@ public class DeviceControllerIT {
 	
 	@Test
 	public void testNewDevice() {
-		
 		Customer customer = new Customer("Carlos");
 		customer.setId(20L);
 		
