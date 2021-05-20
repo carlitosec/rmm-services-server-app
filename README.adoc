@@ -1,0 +1,128 @@
+= Backend Task
+
+A Remote Monitoring and Management (RMM) company provides services that monitor
+and manage devices.
+Breakdown of service costs:
+• Antivirus ($5 Windows, $7 Mac). To have antivirus in their devices.
+• Cloudberry ($3). To backup data in their devices.
+• PSA ($2). Ticketing system for alerts in their devices.
+• TeamViewer ($1). Remote connection to devices.
+
+Devices have the following properties:
+• Id
+• System Name
+• Type (Windows Workstation, Windows Server, Mac)
+
+
+== Installation and Getting Started
+
+• Compile the project:
+[indent=0]
+----
+mvn clean install
+----
+
+• Execute the project:
+[indent=0]
+----
+mvn spring-boot:run
+----
+
+After running the above command, the endpoints to accomplish the task will be enabled. There is a basic authorization mechanism to access to the endpoints:
+[indent=0]
+----
+user=admin
+password=password12
+----
+
+The list of endpoints:
+
+=== Device operations
+==== • Add device
+[indent=0]
+----
+  Method = POST
+  http://<hostname>:<port>/rmm/devices/{customerId}
+  
+  customerId -> Customer Id
+  
+  JSON Request Sample:
+  {
+      "systemName": "iPhone10-Customer-212",
+      "type": "IOS10-12-212"
+   }
+----
+
+==== • Update device
+[indent=0]
+----
+  Method = PUT
+	http://<hostname>:<port>/rmm/devices/{id}
+  
+  id -> Device Id
+  
+  JSON Request Sample:
+  {
+      "systemName": "iPhone10-Customer-212",
+      "type": "IOS10-12-212"
+   }
+----
+
+==== • Delete device
+[indent=0]
+----
+  Method = DELETE
+	http://<hostname>:<port>/rmm/devices/{id}
+  
+  id -> Device Id   
+----
+
+==== • List all devices
+[indent=0]
+----
+  Method = GET
+	http://<hostname>:<port>/rmm//{customerId}/devices
+  
+  customerId -> Customer Id   
+----
+
+
+=== Service operations
+==== • Add service to customer account
+[indent=0]
+----
+  Method = POST
+	http://<hostname>:<port>/rmm/productAccount/{deviceId}/{productId}
+  
+  deviceId -> Device Id
+  productId -> Service Id
+   
+----
+
+==== • Delete service
+[indent=0]
+----
+  Method = DELETE
+	http://<hostname>:<port>/rmm/productAccount/{deviceId}/{productId}
+  
+  deviceId -> Device Id
+  productId -> Service Id
+   
+----
+
+==== • List all services by customer
+[indent=0]
+----
+	http://<hostname>:<port>/rmm/{customerId}/productAccounts
+  
+  customerId -> Customer Id   
+----
+
+==== • Get total monthly cost of all services by customer
+[indent=0]
+----
+	http://<hostname>:<port>/rmm/findTotalMonthlyCost/{customerId}/
+  
+  customerId -> Customer Id   
+----
+
