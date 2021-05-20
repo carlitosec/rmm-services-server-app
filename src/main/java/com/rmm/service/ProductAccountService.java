@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.rmm.model.Customer;
@@ -51,6 +52,14 @@ public class ProductAccountService {
 			productAccount = new ProductAccount(pId, device, product, new Timestamp(new Date().getTime()));
 			productAccountRepository.save(productAccount);
 		}
+	}
+	
+	public ResponseEntity<?> delete(Long deviceId, Long productId) throws Exception {
+		return productAccountRepository.findByDeviceIdAndProductId(deviceId, productId).map(p -> {
+			productAccountRepository.delete(p);
+			return ResponseEntity.ok().build();
+		}).orElseThrow(() -> new Exception(
+	            "Product account not found with device id " + deviceId + " and product id " + productId));
 	}
 	
 	public Double getTotalMonthlyCost(Long customerId, int month, int year) {
