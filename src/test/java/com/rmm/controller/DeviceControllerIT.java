@@ -70,7 +70,4 @@ public class DeviceControllerIT {
 	private String createURLWithPort(String uri) {
 		return "http://localhost:" + port + uri;
 	}
-	
-	
-
 }
