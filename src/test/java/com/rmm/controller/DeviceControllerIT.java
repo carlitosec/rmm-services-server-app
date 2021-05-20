@@ -34,7 +34,6 @@ import com.rmm.service.DeviceService;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
 public class DeviceControllerIT {
-	
 	@LocalServerPort
 	private int port;
 	
