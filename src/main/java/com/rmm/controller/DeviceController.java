@@ -3,6 +3,7 @@
  */
 package com.rmm.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,17 +37,17 @@ public class DeviceController {
 	
 	@GetMapping("/{customerId}/devices")
 	public ResponseEntity<List<Device>> getAllDevices(@PathVariable("customerId") Long customerId) {
-		List<Device> devices = deviceService.findAll(customerId);
+		List<Device> devices = new ArrayList<Device>();
 
 		try {
+			devices = deviceService.findAll(customerId);
 			if (devices.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
+			return new ResponseEntity<>(devices, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-		return new ResponseEntity<>(devices, HttpStatus.OK);
 	}
 
 	@PostMapping("/devices/{customerId}")

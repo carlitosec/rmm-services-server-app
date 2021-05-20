@@ -39,7 +39,7 @@ public class DeviceService {
 	}
 	
 	public Device save(Device device) {
-		return deviceRepository.save(new Device(null, device.getSystemName(), device.getType()));
+		return deviceRepository.save(new Device(device.getSystemName(), device.getType()));
 	}
 	
 	public Device save(Long customerId, Device device) throws Exception{
