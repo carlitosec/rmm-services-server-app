@@ -4,15 +4,18 @@
 package com.rmm.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -38,20 +41,22 @@ public class Device implements Serializable{
 	@Column(name = "type")
 	private String type;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+//	@ManyToOne(cascade = CascadeType.DETACH)
+	@ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customer customer;
+	
+	@OneToMany(mappedBy = "device")
+	private Set<ProductAccount> productAccount = new HashSet<ProductAccount>();
 	
 	public Device() {}
 	
 	
 	/**
-	 * @param id
 	 * @param systemName
 	 * @param type
 	 */
-	public Device(Long id, String systemName, String type) {
-		this.id = id;
+	public Device(String systemName, String type) {
 		this.systemName = systemName;
 		this.type = type;
 	}
@@ -113,4 +118,22 @@ public class Device implements Serializable{
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+
+	/**
+	 * @return the productAccount
+	 */
+	public Set<ProductAccount> getProductAccount() {
+		return productAccount;
+	}
+
+
+	/**
+	 * @param productAccount the productAccount to set
+	 */
+	public void setProductAccount(Set<ProductAccount> productAccount) {
+		this.productAccount = productAccount;
+	}
+	
+	
 }

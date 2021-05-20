@@ -28,13 +28,13 @@ public class Customer implements Serializable{
 	private static final long serialVersionUID = -9119399308322044263L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name = "name")
 	private String customerName;
 	
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.DETACH)
 	private List<Device> devices;
 	
 	public Customer() {}
